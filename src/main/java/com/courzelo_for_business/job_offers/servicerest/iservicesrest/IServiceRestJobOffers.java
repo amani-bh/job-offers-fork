@@ -7,7 +7,7 @@ import com.courzelo_for_business.job_offers.entities.dtos.JobOffersDTO;
 public interface IServiceRestJobOffers {
 
 	
-	public JobOffersDTO addJob(JobOffersDTO requestJob);
+	public JobOffersDTO addJob(JobOffersDTO requestJob,String idBusiness);
 	public List<JobOffersDTO> getAllJobOffers();
 	public List<JobOffersDTO> getJobOffersByState(String state);
 	public List<JobOffersDTO> getJobOffersByBusiness(String idBusiness);

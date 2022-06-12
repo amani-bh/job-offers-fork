@@ -97,8 +97,8 @@ public class JobOffers {
 	    @Field(value = "communicationMails")
 	    private List<String> communicationMails;
 
-	    @Field(value = "idBusiness")
-	    private String idBusiness;
+	    @Field(value = "business")
+	    private Business business;
 	    
 	    @Field(value = "idPrehiringTest")
 	    private String idPrehiringTest;

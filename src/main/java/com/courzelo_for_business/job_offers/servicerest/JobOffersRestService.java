@@ -1,11 +1,16 @@
 package com.courzelo_for_business.job_offers.servicerest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.courzelo_for_business.job_offers.entities.Business;
 import com.courzelo_for_business.job_offers.entities.JobOffers;
 import com.courzelo_for_business.job_offers.entities.dtos.JobOffersDTO;
 import com.courzelo_for_business.job_offers.repositories.JobOffersRepository;
@@ -22,25 +27,57 @@ public class JobOffersRestService implements IServiceRestJobOffers{
     private  JobOffersRepository jobRepository;
     
     
+    @Autowired
+    RestTemplateBuilder restTemplateBuilder;
+    
     
     @Override
 	public List<JobOffersDTO> getAllJobOffers() {
 		
 		
 		List<JobOffers> jobs = jobRepository.findAll();
-		return jobs.stream().map(job -> mapper.map(job, JobOffersDTO.class))
-		.collect(Collectors.toList());
+		jobs.forEach(job->{
+			if(job.getBusiness()!=null) {
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("userId", job.getBusiness().getIdBusiness());
+			Business business = restTemplateBuilder.build().getForObject("https://springgateway.herokuapp.com/business-auth/api/auth/{userId}", Business.class, params);
+		    job.setBusiness(business);
+			}
+		});
+		return jobs.stream().map(job -> mapper.map(job, JobOffersDTO.class)
+		    ).collect(Collectors.toList());
 	}
 	
     
     public List<JobOffersDTO> getJobOffersByBusiness(String idBusiness){
-    	List<JobOffers> jobs = jobRepository.findByIdBusiness(idBusiness);
+    	List<JobOffers> jobs = jobRepository.findByBusinessIdBusiness(idBusiness);
+    	
+    	jobs.forEach(job->{
+			if(job.getBusiness()!=null) {
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("userId", job.getBusiness().getIdBusiness());
+			Business business = restTemplateBuilder.build().getForObject("https://springgateway.herokuapp.com/business-auth/api/auth/{userId}", Business.class, params);
+		    job.setBusiness(business);
+			}
+		});
+    	
 		return jobs.stream().map(job -> mapper.map(job, JobOffersDTO.class))
 		.collect(Collectors.toList());
     }
     
     public List<JobOffersDTO> getJobOffersByBusinessAndState(String idBusiness,String state){
-    	List<JobOffers> jobs = jobRepository.findByIdBusinessAndState(idBusiness,state);
+    	List<JobOffers> jobs = jobRepository.findByBusinessIdBusinessAndState(idBusiness,state);
+    	
+    	jobs.forEach(job->{
+			if(job.getBusiness()!=null) {
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("userId", job.getBusiness().getIdBusiness());
+			Business business = restTemplateBuilder.build().getForObject("https://springgateway.herokuapp.com/business-auth/api/auth/{userId}", Business.class, params);
+		    job.setBusiness(business);
+			}
+		});
+    	
+    	
 		return jobs.stream().map(job -> mapper.map(job, JobOffersDTO.class))
 		.collect(Collectors.toList());
     }
@@ -61,10 +98,16 @@ public class JobOffersRestService implements IServiceRestJobOffers{
 	}
 	
 	
-    @Override
-	public JobOffersDTO addJob(JobOffersDTO requestJob) {
+   
+	public JobOffersDTO addJob(JobOffersDTO requestJob,String idBusiness) {
 		
 	   JobOffers job = mapper.map(requestJob, JobOffers.class);
+	   
+	    Map<String, String> params = new HashMap<String, String>();
+		params.put("userId", idBusiness);
+		Business business = restTemplateBuilder.build().getForObject("https://springgateway.herokuapp.com/business-auth/api/auth/{userId}", Business.class, params);
+	    job.setBusiness(business);
+	    
 	   JobOffers newJob = jobRepository.save(job);
         return mapper.map(newJob, JobOffersDTO.class);
 		
@@ -103,7 +146,13 @@ public class JobOffersRestService implements IServiceRestJobOffers{
     	thejob.setCommunication(job.isCommunication());
     	thejob.setCommunicationMails(job.getCommunicationMails());
     	thejob.setIdPrehiringTest(job.getIdPrehiringTest());
-    	thejob.setIdBusiness(job.getIdBusiness());
+    	
+    	
+    	Map<String, String> params = new HashMap<String, String>();
+		params.put("userId", thejob.getBusiness().getIdBusiness());
+		Business business = restTemplateBuilder.build().getForObject("https://springgateway.herokuapp.com/business-auth/api/auth/{userId}", Business.class, params);
+	    thejob.setBusiness(business);
+	    
     	
     	JobOffers newJob = jobRepository.save(thejob);
 		

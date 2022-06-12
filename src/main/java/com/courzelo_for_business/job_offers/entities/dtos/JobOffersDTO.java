@@ -1,5 +1,6 @@
 package com.courzelo_for_business.job_offers.entities.dtos;
 
+import com.courzelo_for_business.job_offers.entities.Business;
 import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -62,7 +63,7 @@ public class JobOffersDTO {
 	    
 	    private List<String> communicationMails;
 
-	    private String idBusiness;
+	    private Business business;
 	    
 	    private String idPrehiringTest;
 	    

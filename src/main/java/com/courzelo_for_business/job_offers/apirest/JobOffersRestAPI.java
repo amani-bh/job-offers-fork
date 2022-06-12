@@ -31,6 +31,7 @@ public class JobOffersRestAPI {
 	@Autowired
 	private IServiceRestJobOffers iJob;
 	
+	
 	@GetMapping(path = "")
 	public List<JobOffersDTO> getAllJobs() {
 		return iJob.getAllJobOffers(); 
@@ -60,14 +61,14 @@ public class JobOffersRestAPI {
 	}
 	
 	@GetMapping(path = "business/{idBusiness}/{state}")
-	public List<JobOffersDTO> getByIdBusiness(@PathVariable(name = "idBusiness") String idBusiness,@PathVariable(name = "state") String state) {
+	public List<JobOffersDTO> getByIdBusinessAndState(@PathVariable(name = "idBusiness") String idBusiness,@PathVariable(name = "state") String state) {
 		return iJob.getJobOffersByBusinessAndState(idBusiness,state); 
 	}
 	
-	@PostMapping(path = "")
-    public ResponseEntity<JobOffersDTO> addCourse(@RequestBody  @Valid  JobOffersDTO job) {
+	@PostMapping(path = "/{idBusiness}")
+    public ResponseEntity<JobOffersDTO> addJob(@RequestBody  @Valid  JobOffersDTO job,@PathVariable(name = "idBusiness") String idBusiness) {
 		
-		JobOffersDTO jobResponse = iJob.addJob(job);
+		JobOffersDTO jobResponse = iJob.addJob(job,idBusiness);
 		
         return new ResponseEntity<JobOffersDTO>(jobResponse, HttpStatus.CREATED);
     }
