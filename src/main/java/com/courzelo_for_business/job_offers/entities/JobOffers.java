@@ -106,6 +106,8 @@ public class JobOffers {
 	    @Field(value = "idTest")
 	    private List<String> idTest;
 	    
+	    
+	    
 		public JobOffers() {}
 
 

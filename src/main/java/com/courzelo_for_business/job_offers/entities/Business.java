@@ -8,61 +8,56 @@ import javax.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "business")
+
 public class Business {
-  @Id
-  private String idBusiness;
+	private String idBusiness;
 
-  @NotBlank
-  @Size(max = 20)
-  private String companyName;
+	  
+	  private String companyName;
 
-  @NotBlank
-  @Size(max = 50)
-  @Email
-  private String email;
+	  
+	  private String email;
 
-  @NotBlank
-  @Size(max = 120)
-  private String password;
-  
-  private boolean active;
-  
-  private boolean enabled;
-  
-  private String website;
-  
-  private String nbEmployee;
-  
-  private String firstName;
-  
-  private String lastName;
+	  
+	  private String password;
+	  
+	  private boolean active;
+	  
+	  private boolean enabled;
+	  
+	  private String website;
+	  
+	  private String nbEmployee;
+	  
+	  private String firstName;
+	  
+	  private String lastName;
 
- 
-  private String recrutementRole;
-  
-  
-  private String phone;
-  
- 
-  private String industry;
-  
-  
-  private String country;
-  
-  
-  private String address;
-  
+	 
+	  private String recrutementRole;
+	  
+	  
+	  private String phone;
+	  
+	 
+	  private String industry;
+	  
+	  
+	  private String country;
+	  
+	  
+	  private String address;
+	  
 
-  private String logo;
-  
+	  private String logo;
+	  
 
-  
-  private String description;
+	  
+	  private String description;
 
 
-  
-  private Date creationDate;
+	  
+	  private Date creationDate;
 
   public Business() {
   }
