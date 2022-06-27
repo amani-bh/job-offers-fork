@@ -22,17 +22,17 @@ public class JobOffersApplicationTests {
 	IServiceRestJobOffers iServiceJobs;
 
 	
-	/*@Test
+	@Test
     public void GetJobs()
     {       List<JobOffersDTO> jobs=iServiceJobs.getAllJobOffers();
-            Assert.assertEquals(jobs.size(),2);
+            Assert.assertEquals(2,jobs.size());
     }
 	
 	
 	@Test
     public void GetJobById()
     {       JobOffersDTO job=iServiceJobs.getJobById("62a67bb814af075d45cdba27");
-            Assert.assertEquals(job.getIdJob(),"62a67bb814af075d45cdba27");
+            Assert.assertEquals("62a67bb814af075d45cdba27",job.getIdJob());
     }
 	
 
@@ -40,7 +40,7 @@ public class JobOffersApplicationTests {
 	@Test
     public void getJobByBusiness()
     {       List<JobOffersDTO> jobs=iServiceJobs.getJobOffersByBusiness("626b2efbf1d5b22ee0106932");
-            Assert.assertEquals(jobs.size(),2);
+            Assert.assertEquals(2,jobs.size());
     }
 	
 	
@@ -51,7 +51,7 @@ public class JobOffersApplicationTests {
  	        job.setDescription("new job for testinf");
     
 		    JobOffersDTO res=iServiceJobs.addJob(job,"626b2efbf1d5b22ee0106932");
-            Assert.assertEquals(res.getBusiness().getIdBusiness(),"626b2efbf1d5b22ee0106932");
+            Assert.assertEquals("626b2efbf1d5b22ee0106932",res.getBusiness().getIdBusiness());
     }
 	
 	
@@ -63,21 +63,21 @@ public class JobOffersApplicationTests {
  	        job.setDescription("new job for testinf");
     
 		    JobOffersDTO res=iServiceJobs.updateJob("62a749a414815f55a7950fd8", job);
-            Assert.assertEquals(res.getTitle(),"updated job");
+            Assert.assertEquals("updated job",res.getTitle());
     }
 	
 	@Test
 	public void ActivateJob()
     {       
 		    JobOffersDTO job =iServiceJobs.activateJob("62a749a414815f55a7950fd8");
-            Assert.assertEquals(job.getState(),"Active");
+            Assert.assertEquals("Active",job.getState());
     }
 	
 	@Test
 	public void InactivateJob()
     {       
 		    JobOffersDTO job =iServiceJobs.desactivateJob("62a749a414815f55a7950fd8");
-            Assert.assertEquals(job.getState(),"Inactive");
+            Assert.assertEquals("Inactive",job.getState());
     }
 	
 	
@@ -85,7 +85,7 @@ public class JobOffersApplicationTests {
 	public void AssignPrehiringTest()
     {       
 		    JobOffersDTO job =iServiceJobs.assignPrehiringTest("62a749a414815f55a7950fd8","1");
-            Assert.assertEquals(job.getIdPrehiringTest(),"1");
+            Assert.assertEquals("1",job.getIdPrehiringTest());
     }
 	
 	
@@ -93,22 +93,22 @@ public class JobOffersApplicationTests {
 	public void UnAssignPrehiringTest()
     {       
 		    JobOffersDTO job =iServiceJobs.unassignPrehiringTest("62a749a414815f55a7950fd8");
-            Assert.assertEquals(job.getIdPrehiringTest(),"");
+            Assert.assertEquals("",job.getIdPrehiringTest());
     }
 	
 	@Test
 	public void VerifPrehiringTest()
     {       
 		    boolean res =iServiceJobs.verifTestExist("1");
-            Assert.assertEquals(res,true);
+            Assert.assertEquals(true,res);
     }
-	*/
+	
 	@Test
     public void DeleteJob()
     {       
 		    iServiceJobs.deleteJob("62a749a414815f55a7950fd8");
 		    List<JobOffersDTO> jobs=iServiceJobs.getAllJobOffers();
-            Assert.assertEquals(jobs.size(),2);
+            Assert.assertEquals(2,jobs.size());
     }
 	
 

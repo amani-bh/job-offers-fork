@@ -8,8 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
 import com.courzelo_for_business.job_offers.entities.Business;
 import com.courzelo_for_business.job_offers.entities.JobOffers;
 import com.courzelo_for_business.job_offers.entities.dtos.JobOffersDTO;
