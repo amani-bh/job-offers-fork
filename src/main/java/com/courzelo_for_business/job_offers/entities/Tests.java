@@ -26,8 +26,11 @@ public class Tests {
 	    @Field(value = "idQuiz")
 	    private String idQuiz;
 	    
-	    @Field(value = "idBusiness")
-	    private String idBusiness;
+	    @Field(value = "business")
+	    private Business business;
+
+	    @Field(value = "type")
+	    private String type;
 	    
 	    @Field(value = "DateCreation")
 	    private Date dateCreation;

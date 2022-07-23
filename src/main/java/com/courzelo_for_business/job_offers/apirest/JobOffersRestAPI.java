@@ -134,6 +134,13 @@ public class JobOffersRestAPI {
 		return new ResponseEntity<JobOffersDTO>(jobResponse, HttpStatus.CREATED);
         
     }
+	
+	@DeleteMapping(path = "/{idJob}/{idTest}")
+	public void deleteJob(@PathVariable(name = "idJob") String idJob,@PathVariable(name = "idTest") String idTest) {
+		iJob.DeleteTest(idJob,idTest);
+		
+	}
+	
 }
 	
 

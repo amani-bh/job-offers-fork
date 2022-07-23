@@ -24,6 +24,8 @@ public interface IServiceRestJobOffers {
 	public JobOffersDTO addTest(String idJob,String idTest);
 	public boolean verifTestExist(String idPrehingTest);
 	
+	public void DeleteTest(String idJob,String idTest);
+	
 	
 
 	
