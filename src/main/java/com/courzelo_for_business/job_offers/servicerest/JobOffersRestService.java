@@ -10,7 +10,6 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import com.courzelo_for_business.job_offers.entities.Business;
 import com.courzelo_for_business.job_offers.entities.JobOffers;
-import com.courzelo_for_business.job_offers.entities.Tests;
 import com.courzelo_for_business.job_offers.entities.dtos.JobOffersDTO;
 import com.courzelo_for_business.job_offers.repositories.JobOffersRepository;
 import com.courzelo_for_business.job_offers.servicerest.iservicesrest.IServiceRestJobOffers;
