@@ -53,6 +53,10 @@ public class JobOffersRestAPI {
 	public boolean verifExistPrehiringTest(@PathVariable(name = "idPrehiringTest") String idPrehiringTest) {
 		return iJob.verifTestExist(idPrehiringTest); 
 	}
+	@GetMapping(path = "/existOther/{idOtherTest}")
+	public boolean verifExistOtherTest(@PathVariable(name = "idOtherTest") String idOtherTest) {
+		return iJob.verifOtherTestExist(idOtherTest); 
+	}
 	
 	
 	@GetMapping(path = "business/{idBusiness}")
@@ -126,6 +130,24 @@ public class JobOffersRestAPI {
         
     }
 	
+	@PutMapping(path = "/AssignOtherTest/{idJob}/{idOtherTest}")
+    public ResponseEntity<JobOffersDTO> assignOtherTest(@PathVariable(name = "idJob") String idJob,@PathVariable(name = "idOtherTest") String idOtherTest) {
+		
+		JobOffersDTO jobResponse=iJob.assignOtherTest(idJob,idOtherTest);
+		
+		return new ResponseEntity<JobOffersDTO>(jobResponse, HttpStatus.CREATED);
+        
+    }
+	
+	@PutMapping(path = "/UnAssignOtherTest/{idJob}")
+    public ResponseEntity<JobOffersDTO> unAssignOtherTest(@PathVariable(name = "idJob") String idJob) {
+		
+		JobOffersDTO jobResponse=iJob.unassignOtherTest(idJob);
+		
+		return new ResponseEntity<JobOffersDTO>(jobResponse, HttpStatus.CREATED);
+        
+    }
+	
 	@PutMapping(path = "/AddTest/{idJob}/{idTest}")
     public ResponseEntity<JobOffersDTO> addTest (@PathVariable(name = "idJob") String idJob,@PathVariable(name = "idTest") String idTest) {
 		
@@ -134,13 +156,6 @@ public class JobOffersRestAPI {
 		return new ResponseEntity<JobOffersDTO>(jobResponse, HttpStatus.CREATED);
         
     }
-	
-	@DeleteMapping(path = "/{idJob}/{idTest}")
-	public void deleteJob(@PathVariable(name = "idJob") String idJob,@PathVariable(name = "idTest") String idTest) {
-		iJob.DeleteTest(idJob,idTest);
-		
-	}
-	
 }
 	
 

@@ -23,8 +23,9 @@ public interface IServiceRestJobOffers {
 	public JobOffersDTO unassignPrehiringTest(String idJob) ;
 	public JobOffersDTO addTest(String idJob,String idTest);
 	public boolean verifTestExist(String idPrehingTest);
-	
-	public void DeleteTest(String idJob,String idTest);
+	public boolean verifOtherTestExist(String idOtherTest);
+	public JobOffersDTO assignOtherTest(String idJob,String idOtherTest);
+	public JobOffersDTO unassignOtherTest(String idJob) ;
 	
 	
 

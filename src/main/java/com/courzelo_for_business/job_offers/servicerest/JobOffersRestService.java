@@ -48,32 +48,33 @@ public class JobOffersRestService implements IServiceRestJobOffers{
 	
     
     public List<JobOffersDTO> getJobOffersByBusiness(String idBusiness){
-    	List<JobOffers> jobs = jobRepository.findByBusinessIdBusiness(idBusiness);
+    	List<JobOffers> jobs = jobRepository.findByBusinessCompanyName(idBusiness);
     	
-    	jobs.forEach(job->{
+    	/*jobs.forEach(job->{
 			if(job.getBusiness()!=null) {
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("userId", job.getBusiness().getIdBusiness());
 			Business business = restTemplateBuilder.build().getForObject("https://springgateway.herokuapp.com/business-auth/api/auth/{userId}", Business.class, params);
 		    job.setBusiness(business);
 			}
-		});
+		});*/
     	
 		return jobs.stream().map(job -> mapper.map(job, JobOffersDTO.class))
 		.collect(Collectors.toList());
     }
     
     public List<JobOffersDTO> getJobOffersByBusinessAndState(String idBusiness,String state){
-    	List<JobOffers> jobs = jobRepository.findByBusinessIdBusinessAndState(idBusiness,state);
+    	System.out.println("state"+idBusiness);
+    	List<JobOffers> jobs = jobRepository.findByBusinessCompanyNameAndState(idBusiness,state);
     	
-    	jobs.forEach(job->{
+    	/*jobs.forEach(job->{
 			if(job.getBusiness()!=null) {
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("userId", job.getBusiness().getIdBusiness());
 			Business business = restTemplateBuilder.build().getForObject("https://springgateway.herokuapp.com/business-auth/api/auth/{userId}", Business.class, params);
 		    job.setBusiness(business);
 			}
-		});
+		});*/
     	
     	
 		return jobs.stream().map(job -> mapper.map(job, JobOffersDTO.class))
@@ -98,13 +99,13 @@ public class JobOffersRestService implements IServiceRestJobOffers{
 	
    
 	public JobOffersDTO addJob(JobOffersDTO requestJob,String idBusiness) {
-		
 	   JobOffers job = mapper.map(requestJob, JobOffers.class);
 	   
 	    Map<String, String> params = new HashMap<String, String>();
 		params.put("userId", idBusiness);
-		Business business = restTemplateBuilder.build().getForObject("https://springgateway.herokuapp.com/business-auth/api/auth/{userId}", Business.class, params);
-	    job.setBusiness(business);
+		Business business = restTemplateBuilder.build().getForObject("http://localhost:8090/api/auth/{userId}", Business.class, params);
+		//Business business = restTemplateBuilder.build().getForObject("https://springgateway.herokuapp.com/business-auth/api/auth/{userId}", Business.class, params);
+		job.setBusiness(business);
 	    
 	   JobOffers newJob = jobRepository.save(job);
         return mapper.map(newJob, JobOffersDTO.class);
@@ -224,31 +225,34 @@ public class JobOffersRestService implements IServiceRestJobOffers{
        
         }
     
-        
-       public void DeleteTest(String idJob,String idQuiz) {
-            
-        	JobOffers thejob = jobRepository.findByIdJob(idJob);
-        	if(thejob.getIdTest()!=null) {
-        		List<String> l= thejob.getIdTest();
-        		int x=l.indexOf(idQuiz);
-        		l.remove(x);
-        		thejob.setIdTest(l);
-        		jobRepository.save(thejob);
-	
-        	}
-        	
-        	
-        	 
-        	
-       
-        }
-    
 
 
     	public boolean verifTestExist(String idPrehingTest){
     		return jobRepository.existsByIdPrehiringTest(idPrehingTest);
     		
     	}
+    	public boolean verifOtherTestExist(String idOtherTest){
+    		return jobRepository.existsByIdOtherTest(idOtherTest);
+    		
+    	}
+
+
+		@Override
+		public JobOffersDTO assignOtherTest(String idJob, String idOtherTest) {
+			JobOffers thejob = jobRepository.findByIdJob(idJob);
+	    	thejob.setIdOtherTest(idOtherTest);
+	    	JobOffers newJob = jobRepository.save(thejob);
+	    	return mapper.map(newJob, JobOffersDTO.class);
+		}
+
+
+		@Override
+		public JobOffersDTO unassignOtherTest(String idJob) {
+			JobOffers thejob = jobRepository.findByIdJob(idJob);
+	    	thejob.setIdOtherTest("");
+	    	JobOffers newJob = jobRepository.save(thejob);
+	    	return mapper.map(newJob, JobOffersDTO.class);
+		}
    
 	
 }

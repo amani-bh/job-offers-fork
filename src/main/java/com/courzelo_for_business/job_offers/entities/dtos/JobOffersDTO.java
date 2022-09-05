@@ -66,6 +66,8 @@ public class JobOffersDTO {
 	    private Business business;
 	    
 	    private String idPrehiringTest;
+	    
+	    private String idOtherTest;
 	   
 	    private List<String> idTest;
 

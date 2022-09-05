@@ -103,6 +103,9 @@ public class JobOffers {
 	    @Field(value = "idPrehiringTest")
 	    private String idPrehiringTest;
 	    
+	    @Field(value = "idOtherTest")
+	    private String idOtherTest;
+	    
 	    @Field(value = "idTest")
 	    private List<String> idTest;
 	    
